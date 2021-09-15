@@ -155,8 +155,3 @@ def make_vars():
     
     return target, X_train, y_train, X_validate, y_validate, X_test, y_test
 
-###################### Split DataFrame ####################
-
-###################### Split DataFrame ####################
-
-###################### Split DataFrame ####################
