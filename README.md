@@ -41,9 +41,8 @@
 |Feature|Datatype|Definition|
 |:-------|:--------|:----------|
 
- |  payment_type_id           | non-null   int64  | ID associated to payment type (1, 2, 3, 4) |
- |:-------|:--------|:----------|
  |  yearbuilt  | non-null   float64 | The year the property was built. |
+ |:-------|:--------|:----------|
  |  taxamount  | non-null   float64 | The amount of tax paid on the property |
  |  fips       | non-null   float64 | Federal Information Processing Standard (county code)|
  |  area       | non-null   float64 | Calculated square feet of property|
