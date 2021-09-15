@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 from env import host, user, password
+from sklearn.model_selection import train_test_split
 
 ###################### Acquire Zillow Data ######################
 
@@ -78,8 +79,84 @@ def wrangle_zillow():
     df = get_zillow_data()
     df = df.replace(r'^\s*$', np.nan, regex=True)
     df['area'] = df.calculatedfinishedsquarefeet
-    df = df.drop(columns='calculatedfinishedsquarefeet')
+    df['bed'] = df.bedroomcnt
+    df['bath'] = df.bathroomcnt
+    df['taxvalue'] = df.taxvaluedollarcnt
+    df = df.drop(columns=['calculatedfinishedsquarefeet','bedroomcnt', 'bathroomcnt', 'taxvaluedollarcnt'])
     df = df.dropna()
-    df = remove_outliers(df, 1, df.columns)
+    col_list = ['bed', 'bath', 'area', 'taxvalue', 'taxamount']
+    df = remove_outliers(df, 1, col_list)
+    df = df.loc[
+                 (df.transactiondate.str.contains('2017-05')) 
+               | (df.transactiondate.str.contains('2017-06')) 
+               | (df.transactiondate.str.contains('2017-07')) 
+               | (df.transactiondate.str.contains('2017-08'))
+                ]
+    # Converting transactiondate into datetime
+
+    df['transactiondate'] = pd.to_datetime(df['transactiondate'],\
+                        format = '%Y-%m-%d', errors = 'coerce')
+
+    # Creating columns for month, day, and week. We know they're all 2017
+    # so we don't need year
+
+    df['tdate_month'] = df['transactiondate'].dt.month
+    df['tdate_day'] = df['transactiondate'].dt.day
+    df['tdate_week'] = df['transactiondate'].dt.week
+
+    # Dropping transactiondate
+
+    df.drop(columns='transactiondate', inplace=True)
+    county_dict = {
+                6059: "Orange",
+                6037: "Los Angeles",
+                6111: "Ventura"
+                }
+    df['county'] = df.fips.replace(county_dict)
+    df["taxrate"] = df.taxamount / df.taxvalue
+
     return df
 
+
+###################### Split DataFrame ####################
+
+def split(df):
+    '''
+    take in a DataFrame and return train, validate, and test DataFrames.
+    return train, validate, test DataFrames.
+    '''
+    train_validate, test = train_test_split(df, test_size=.2, random_state=123)
+    train, validate = train_test_split(train_validate, 
+                                       test_size=.3, 
+                                       random_state=123)
+    return train, validate, test
+
+###################### Make Variables ####################
+
+def make_vars():
+    
+    target = "taxvalue"
+    clist = ['area', 'bed', 'bath']
+
+    # split train into X (dataframe, only col in list) & y (series, keep target only)
+    X_train = train[clist]
+    y_train = train[target]
+    y_train = pd.DataFrame(y_train)
+    
+    # split validate into X (dataframe, only col in list) & y (series, keep target only)
+    X_validate = validate[clist]
+    y_validate = validate[target]
+    y_validate = pd.DataFrame(y_validate)
+
+    # split test into X (dataframe, only col in list) & y (series, keep target only)
+    X_test = test[clist]
+    y_test = test[target]
+    y_test = pd.DataFrame(y_test)
+    
+    return target, X_train, y_train, X_validate, y_validate, X_test, y_test
+
+###################### Split DataFrame ####################
+
+###################### Split DataFrame ####################
+
+###################### Split DataFrame ####################
