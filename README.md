@@ -79,7 +79,7 @@
 
 <hr style="border-top: 10px groove blueviolet; margin-top: 1px; margin-bottom: 1px"></hr>
 
-### Executive Summary - Conclusions & Next Steps
+### Executive Summary
 <hr style="border-top: 10px groove blueviolet; margin-top: 1px; margin-bottom: 1px"></hr>
 
 > - Bedroom count, bathroom count, and area(sqft) all have a linear correlation with taxvalue
