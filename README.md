@@ -1,4 +1,4 @@
-## Zillow Classification Project
+## Zillow Regression Project
 
 <img src="zillow_logo.png" title="zillow_logo" width="500" height="200" />
 
