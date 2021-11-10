@@ -5,10 +5,9 @@
 <hr style="border-top: 10px groove blueviolet; margin-top: 1px; margin-bottom: 1px"></hr>
 
 ### Project Summary
+<hr style="border-top: 10px groove blueviolet; margin-top: 1px; margin-bottom: 1px"></hr>
 
 The goal of this project was to find drivers that affect tax value using the Zillow data set. Bedroom count, bathroom count, and area(sqft) all had a linear correlation with taxvalue. Using this data, I created a ML Regression Model that predicts tax value. I documented the entire process to be presented or read like a report. My best model (Quadratic Polynomial) beat the baseline (mean) RMSE value by 12,259 points. I also found that Single Unit Properties assessed from May-Aug 2017 in the Zillow dataset were located in the following counties: Orange, Ventura, and Los Angeles. All in the state of California.
-
-<hr style="border-top: 10px groove blueviolet; margin-top: 1px; margin-bottom: 1px"></hr>
 
 #### Project Objectives
 > - Document code, process (data acquistion, preparation, exploratory data analysis and statistical testing, modeling, and model evaluation), findings, and key takeaways in a Jupyter Notebook report.
